@@ -1,24 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { Button, FormControl, InputLabel,Input } from '@material-ui/core';
 import './App.css';
+import Message from './Message';
 
 function App() {
+  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState([
+    {username: 'Jon', text:'Ayyy'},
+    {username:'Ashley', text:'Hey you!'}
+  ]);
+  const [username, setUsername] = useState('');
+
+  // useState = variable in REACT, short term and reset upon page refresh.
+  // useEffect = block of code run on a condition 
+
+  useEffect(() => {
+    //run code here...
+    //If condition is blank, code runs ONCE when the app component loads
+    setUsername(prompt('Please enter your name.'));
+    return () => {
+      //cleanup
+    }
+  }, []/*Condition..*/)
+
+  const sendMessage = (event) =>{
+    event.preventDefault();
+    setMessages([
+      ...messages, { username: username,text: input }
+    ]);
+    setInput('');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello World!</h1>
+      <h2>Welcome {username}</h2>
+      <form>
+        <FormControl>
+          <InputLabel>Enter a message...</InputLabel>
+          <Input name="input" value={input} onChange={event => setInput(event.target.value)} />
+          <Button disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>Send Message</Button>
+        </FormControl>
+      </form>
+
+      {
+        //Interpreted as JavaScript
+        messages.map(message => (
+          <Message username={message.username} text={message.text} />
+        ))
+      }
     </div>
   );
 }

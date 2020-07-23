@@ -6,8 +6,8 @@ import Message from './Message';
 function App() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    {username: 'Jon', text:'Ayyy'},
-    {username:'Ashley', text:'Hey you!'}
+    {username: 'Jane', text:'Hello'},
+    {username: 'Jane', text:'How are you?'}
   ]);
   const [username, setUsername] = useState('');
 
@@ -15,7 +15,6 @@ function App() {
   // useEffect = block of code run on a condition 
 
   useEffect(() => {
-    //run code here...
     //If condition is blank, code runs ONCE when the app component loads
     setUsername(prompt('Please enter your name.'));
     return () => {
@@ -44,9 +43,13 @@ function App() {
       </form>
 
       {
-        //Interpreted as JavaScript
+        /*
+          messages.map(message => (
+              <Message username={message.username} text={message.text} />
+          ))
+        */
         messages.map(message => (
-          <Message username={message.username} text={message.text} />
+          <Message username={username} message={message} />
         ))
       }
     </div>

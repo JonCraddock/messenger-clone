@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, FormControl, InputLabel,Input } from '@material-ui/core';
+import { /*Button, InputLabel*/FormControl,Input } from '@material-ui/core';
 import './App.css';
 import Message from './Message';
 import db from './firebase';
@@ -40,18 +40,16 @@ function App() {
 
   return (
     <div className="App">
-      <img src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100" />
+      <img src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100" alt="Facebook Messenger Logo" />
       <h1>Hello World!</h1>
       <h2>Welcome {username}</h2>
       <form className="app__form">
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
-          <Input name="input" value={input} onChange={event => setInput(event.target.value)} />
+        <FormControl className="app__formControl">
+          <Input className="app__input" placeholder="Enter a message..." name="input" value={input} onChange={event => setInput(event.target.value)} />
           
-          <IconButton disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
+          <IconButton className="app__iconButton" disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
             <SendIcon />
           </IconButton>
-          
         </FormControl>
       </form>
 
